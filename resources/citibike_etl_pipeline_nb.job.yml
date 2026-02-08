@@ -12,7 +12,7 @@ resources:
               run_id: "{{job.run_id}}"
               task_id: "{{taks.run_id}}"
               processed_timestamp: "{{job.start_time.iso_date}}"
-              catalog: citibike_dev
+              catalog: ${var.catalog}
           environment_key: Default
         - task_key: 02_silver_citibike
           depends_on:
@@ -25,7 +25,7 @@ resources:
               run_id: "{{job.run_id}}"
               task_id: "{{taks.run_id}}"
               processed_timestamp: "{{job.start_time.iso_date}}"
-              catalog: citibike_dev
+              catalog: ${var.catalog}
           environment_key: Default
         - task_key: 03_gold_citibike_daily_ride_summary
           depends_on:
@@ -38,7 +38,7 @@ resources:
               run_id: "{{job.run_id}}"
               task_id: "{{taks.run_id}}"
               processed_timestamp: "{{job.start_time.iso_date}}"
-              catalog: citibike_dev
+              catalog: ${var.catalog}
           environment_key: Default
         - task_key: 03_gold_citibike_daily_station_performance
           depends_on:
@@ -51,7 +51,7 @@ resources:
               run_id: "{{job.run_id}}"
               task_id: "{{taks.run_id}}"
               processed_timestamp: "{{job.start_time.iso_date}}"
-              catalog: citibike_dev
+              catalog: ${var.catalog}
           environment_key: Default
       queue:
         enabled: true
