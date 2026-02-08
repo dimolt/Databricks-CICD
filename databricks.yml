@@ -11,9 +11,7 @@ include:
 # Variable declarations. These variables are assigned in the dev/prod targets below.
 variables:
   catalog:
-    description: The catalog to use
-  schema:
-    description: The schema to use
+    default: "citibike_dev"
 
 targets:
   dev:
@@ -27,8 +25,7 @@ targets:
       host: https://dbc-5c5d11a8-7d16.cloud.databricks.com
       root_path: /Workspace/Users/realnowhereman@icloud.com/bundle_${bundle.target}/${bundle.name}
     variables:
-      catalog: workspace
-      schema: ${workspace.current_user.short_name}
+      catalog:
   test:
     mode: production
     workspace:
@@ -36,9 +33,9 @@ targets:
       # We explicitly deploy to /Workspace/Users/realnowhereman@icloud.com to make sure we only have a single copy.
       root_path: /Workspace/Shared/bundle_${bundle.target}/${bundle.name}
     variables:
-      catalog: workspace
-      schema: ${workspace.current_user.short_name}
-  prod:
+      catalog:
+        default: "citibike_test"
+  prd:
     mode: production
     workspace:
       host: https://dbc-5c5d11a8-7d16.cloud.databricks.com
@@ -46,8 +43,8 @@ targets:
       #root_path: /Workspace/Users/realnowhereman@icloud.com/bundle_${bundle.target}/${bundle.name}
       root_path: /Workspace/Shared/bundle_${bundle.target}/${bundle.name}
     variables:
-      catalog: workspace
-      schema: prod
+      catalog:
+        default: "citibike_prd"
     permissions:
       - user_name: realnowhereman@icloud.com
         level: CAN_MANAGE
