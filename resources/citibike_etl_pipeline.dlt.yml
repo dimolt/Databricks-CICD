@@ -1,0 +1,20 @@
+resources:
+  pipelines:
+    pipeline_citibike_etl_pipeline:
+      name: citibike_etl_pipeline
+      configuration:
+        catalog: "${var.catalog}"
+      libraries:
+        - glob:
+            include: ../citibike_etl/dlt/01_bronze/01_bronze_citibike.py
+        - glob:
+            include: ../citibike_etl/dlt/02_silver/02_silver_citibike.py
+        - glob:
+            include: ../citibike_etl/dlt/03_gold/03_gold_citibike_daily_ride_summary.py
+        - glob:
+            include: ../citibike_etl/dlt/03_gold/03_gold_citibike_daily_station_performance.py
+      schema: default
+      development: true
+      photon: true
+      catalog: "${var.catalog}"
+      serverless: true
