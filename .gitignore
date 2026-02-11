@@ -9,3 +9,6 @@ scratch/**
 **/explorations/**
 **/!explorations/README.md
 .DS_Store
+.coverage
+.coveragerc
+.coverage.*
