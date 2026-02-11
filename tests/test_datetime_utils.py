@@ -5,11 +5,21 @@ sys.path.append(os.getcwd())
 import datetime
 from src.utils.datetime_utils import timestamp_to_date_col
 
-from pyspark.sql import SparkSession
-
 def test_timestamp_to_date_col():
 
-    spark = SparkSession.builder.getOrCreate()
+  try:
+    from databricks.connect import DatabricksSession
+    
+    spark = DatabricksSession.builder.getOrCreate()
+    print("using Remote DatabricksSession.")
+  except ImportError:
+    try:
+      from pyspark.sql import SparkSession
+
+      spark = SparkSession.builder.getOrCreate()
+      print("using Local SparkSession")
+    except ImportError:
+      raise ImportError("Neither DatabricksSession or SparkSession could be imported.")
 
     # Create a DataFrame with a known timestamp column using a datetime object
     data = [(datetime.datetime(2025, 4, 10, 10, 30, 0),)]
