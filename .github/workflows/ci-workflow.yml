@@ -24,7 +24,8 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v5
         with:
-          java-version: "17.0.14"
+          distribution: "temurin"
+          java-version: "17"
 
       - name: Install dependencies + pytest-html
         run: |
