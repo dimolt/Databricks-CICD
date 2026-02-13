@@ -43,14 +43,13 @@ jobs:
       - name: Deploy to TEST
         run: |
           databricks bundle deploy \
-            --target test \
-            --profile TEST
+            --target test
 
   cd-deploy-prod:
     name: Deploy to PROD
     needs: cd-deploy-test
     runs-on: ubuntu-slim
-    environment: prod
+    environment: prd
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -86,5 +85,4 @@ jobs:
       - name: Deploy to PROD
         run: |
           databricks bundle deploy \
-            --target prod \
-            --profile PROD
+            --target prd
