@@ -14,7 +14,6 @@ resources:
         - glob:
             include: ../citibike_etl/dlt/03_gold/03_gold_citibike_daily_station_performance.py
       schema: default
-      development: true
       photon: true
       catalog: "${var.catalog}"
       serverless: true
