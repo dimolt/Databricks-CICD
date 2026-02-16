@@ -36,7 +36,7 @@ jobs:
           # write out the profile (here called "TEST")
           cat <<EOF > ~/.databrickscfg
           [TEST]
-          host  = https://dbc-5c5d11a8-7d16.cloud.databricks.com
+          host  = ${{ secrets.HOST }}
           token = ${{ secrets.PAT }}
           EOF
 
@@ -79,7 +79,7 @@ jobs:
           # write out the profile (here called "PROD")
           cat <<EOF > ~/.databrickscfg
           [PRD]
-          host  = https://dbc-5c5d11a8-7d16.cloud.databricks.com
+          host  = ${{ secrets.HOST }}
           token = ${{ secrets.PAT }}
           EOF
 
