@@ -48,7 +48,7 @@ jobs:
   cd-deploy-prod:
     name: Deploy to PROD
     needs: cd-deploy-test
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-24.04
     environment: prd
     steps:
       - name: Checkout code
