@@ -1,0 +1,46 @@
+name: Deploy to Test Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  cd-deploy-test:
+    name: Deploy to TEST
+    runs-on: ubuntu-24.04
+    environment: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: "temurin"
+          java-version: "17"
+      - name: Install Databricks CLI
+        run: curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install setuptools wheel
+
+      - name: Configure Databricks
+        run: |
+          # write out the profile (here called "TEST")
+          cat <<EOF > ~/.databrickscfg
+          [TEST]
+          host  = ${{ secrets.HOST }}
+          token = ${{ secrets.PAT }}
+          EOF
+
+      - name: Deploy to TEST
+        run: |
+          databricks bundle deploy \
+            --target test
