@@ -2,8 +2,6 @@ name: Deploy to Prd Workflow
 
 on:
   push:
-    branches:
-      - main
     tags:
       - "v*.*"
 
@@ -15,6 +13,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          # Tag情報取得のため完全な履歴取得
+          fetch-depth: 0
+
+      - name: Verify tag on main branch
+        run: |
+          TAG="${{ github.ref_name }}"
+          # main ブランチに属しているかを確認
+          if ! git merge-base --is-ancestor $TAG origin/main; then
+            echo "❌ Error: Tag '$TAG' is not on main branch"
+            exit 1
+          fi
+          echo "✅ Tag verified on main branch"
 
       - name: Setup Python
         uses: actions/setup-python@v5
